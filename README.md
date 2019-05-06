@@ -5,9 +5,12 @@ Problem Statement 2: Cluster diabetic patients into severe or not severe.
 
 
 To predict the outcome: Run GUI.py
+
 To view Cluster Information: Run Cluster_Formation.py
 
 NOTE: Be sure you have sklearn and Tkinter libraries installed on your system for Python. If not then install them first along with other libraries required given below. Spyder IDE is recommended.
+
+
 Design and Implementation
 
 Prediction/Classification
