@@ -78,7 +78,7 @@ def action():
     pdf=ip8.get()
     age=ip9.get()
 
-    if(preg.isdigit() and glu.isdigit() and blood.isdigit() and skin.isdigit() and insulin.isdigit() and bmi.replace('.', '', 1).isdigit() and pdf.replace('.', '', 1).isdigit() and age.isidigit()):
+    if(preg.isdigit() and glu.isdigit() and blood.isdigit() and skin.isdigit() and insulin.isdigit() and bmi.replace('.', '', 1).isdigit() and pdf.replace('.', '', 1).isdigit() and age.isdigit()):
         ans1=clf.predict([[int(preg) , int(glu), int(blood), int(skin), int(insulin), float(bmi), float(pdf), int(age)]])
         ans2=gnb.predict([[int(preg) , int(glu), int(blood), int(skin), int(insulin), float(bmi), float(pdf), int(age)]])
         ans3=knn.predict([[int(preg) , int(glu), int(blood), int(skin), int(insulin), float(bmi), float(pdf), int(age)]])
