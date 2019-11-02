@@ -5,6 +5,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cluster import KMeans
 from sklearn.metrics import accuracy_score
+from sklearn.ensemble import VotingClassifier
 from sklearn.model_selection import train_test_split
 df = pd.read_csv("diabetes.csv")
 x=df.iloc[:, :-1].values
@@ -35,17 +36,22 @@ root.configure(bg="#e3f4fc")
 
 
 def acc():
-    X_train,X_test,y_train,y_test=train_test_split(x,y,test_size=0.25)
+    X_train,X_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
     clf1 = tree.DecisionTreeClassifier(criterion='entropy').fit(X_train,y_train)
     gnb1 = GaussianNB().fit(X_train,y_train)
     knn1=KNeighborsClassifier(n_neighbors=5).fit(X_train,y_train)
+    eclf1 = VotingClassifier(estimators=[('clf1', clf1), ('gnb1', gnb1), ('knn1', knn1)], voting='hard')
+    eclf1 = eclf1.fit(X_train, y_train)
     y1pred=clf1.predict(X_test)
     y2pred=gnb1.predict(X_test)
     y3pred=knn1.predict(X_test)
+    y4pred=eclf1.predict(X_test)
     
     e1=accuracy_score(y_test,y1pred)
     e2=accuracy_score(y_test,y2pred)
     e3=accuracy_score(y_test,y3pred)
+    e4=accuracy_score(y_test,y4pred)
+    
     
     a1.configure(state='normal')
     a1.delete(0, END)
@@ -64,7 +70,7 @@ def acc():
     s3="KNN Accuracy: "+str(round(e3*100,2))+"%"
     a3.insert(END,s3)
     a3.configure(state='disabled')
-    
+    messagebox.showinfo("Result", "The accuracy of the ensemble classifier is "+str(round(e4*100,2))+"%")
     
     
     
